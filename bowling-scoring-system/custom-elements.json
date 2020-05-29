@@ -1,0 +1,26 @@
+{
+  "version": 2,
+  "tags": [
+    {
+      "name": "bowling-scoring-system",
+      "description": "The assignment for the Front End position at Braincreators",
+      "properties": [
+        {
+          "name": "Bowling Scoring Systems",
+          "type": "String",
+          "description": "A Bowling Scoring Systems built with Web Components",
+          "default": "Bowling Scoring Systems"
+        },
+        {
+          "name": "page",
+          "type": "String",
+          "description": "Main page",
+          "default": "main"
+        }
+      ],
+      "events": [],
+      "slots": [],
+      "cssProperties": []
+    }
+  ]
+}
