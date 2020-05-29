@@ -55,6 +55,10 @@
     "@material/mwc-textfield": "^0.15.0",
     "deepmerge": "^4.2.2",
     "lit-element": "^2.0.1",
-    "lit-html": "^1.0.0"
+    "lit-html": "^1.0.0",
+    "nanoid": "^3.1.9",
+    "pwa-helpers": "^0.9.1",
+    "redux": "^4.0.5",
+    "reselect": "^4.0.0"
   }
 }
