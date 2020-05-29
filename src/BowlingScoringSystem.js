@@ -1,11 +1,9 @@
 import { LitElement, html } from 'lit-element';
-import './components/nanos/AddPlayer.js';
-import './components/nanos/RemovePlayer.js';
+import './components/nanos/AddRemovePlayer.js';
 
 export class BowlingScoringSystem extends LitElement {
   render() {
     return html`
-    <add-player></add-player>
-    <remove-player></remove-player>`;
+    <add-remove-player></add-remove-player>`;
   }
 }
