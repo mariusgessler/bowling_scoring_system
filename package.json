@@ -50,6 +50,9 @@
   "author": "Marius Gessler",
   "license": "MIT",
   "dependencies": {
+    "@material/layout-grid": "^6.0.0",
+    "@material/mwc-button": "^0.15.0",
+    "@material/mwc-textfield": "^0.15.0",
     "deepmerge": "^4.2.2",
     "lit-element": "^2.0.1",
     "lit-html": "^1.0.0"
