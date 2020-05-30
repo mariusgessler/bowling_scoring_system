@@ -3,6 +3,7 @@ import { connect } from 'pwa-helpers';
 import { store } from '../redux/store.js';
 import './nanos/AddPlayer.js';
 import './nanos/RemovePlayer.js';
+import './nanos/RollControls.js';
 import '@material/mwc-button';
 
 export class GameControls extends connect(store)(LitElement) {
@@ -41,7 +42,8 @@ export class GameControls extends connect(store)(LitElement) {
     ${!this.gameStarted ?
       html`
       <add-player></add-player>
-      <remove-player></remove-player>` : ''}
+      <remove-player></remove-player>` 
+      : html`<roll-controls></roll-controls>`}
       <mwc-button raised ?disabled='${!Object.values(this.players).length}' 
         @click='${this.changeGameStatus}'>${!this.gameStarted ? 'Start' : 'Reset'} Game</mwc-button>`
   }
