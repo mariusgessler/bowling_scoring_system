@@ -59,6 +59,7 @@
     "nanoid": "^3.1.9",
     "pwa-helpers": "^0.9.1",
     "redux": "^4.0.5",
-    "reselect": "^4.0.0"
+    "reselect": "^4.0.0",
+    "uid": "^1.0.0"
   }
 }
