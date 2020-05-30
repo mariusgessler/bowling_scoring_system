@@ -1,5 +1,5 @@
 import { LitElement, html, css } from 'lit-element';
-import { connect } from 'pwa-helpers'; // connects a Custom Element base class to the Redux store
+import { connect } from 'pwa-helpers';
 import { store } from '../../redux/store.js';
 import { removePlayer } from '../../redux/actions.js';
 import '@material/mwc-button';
