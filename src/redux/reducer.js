@@ -1,6 +1,7 @@
 import {
   ADD_PLAYER,
   REMOVE_PLAYER,
+  ADD_ROLL,
 } from './actions.js';
 
 const INITIAL_STATE = {
@@ -18,6 +19,11 @@ export const reducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         players: state.players.splice(0, state.players.length - 1),
+      }
+    case ADD_ROLL:
+      return {
+        ...state,
+        players: [state.players.roll, action.roll]
       }
     default:
       return state;
