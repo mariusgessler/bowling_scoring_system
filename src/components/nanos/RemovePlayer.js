@@ -32,7 +32,7 @@ export class RemovePlayer extends connect(store)(LitElement) {
 
   render() {
     return html`
-    <mwc-button class='themed' raised ?disabled = ${!Object.values(this.players).length}  icon="remove" @click="${this.removePlayer}">Remove Player</mwc-button>`
+    <mwc-button raised ?disabled = ${!Object.values(this.players).length} icon="remove" @click='${this.removePlayer}'>Remove Player</mwc-button>`
   };
 };
 
