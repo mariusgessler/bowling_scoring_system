@@ -20,7 +20,17 @@ export class GameControls extends connect(store)(LitElement) {
 
   static get styles() {
     return css`
+    .game-controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      margin: 60px auto 0;
+    }
+
     mwc-button {
+      width: 250px;
+      margin-top: 15px;
       --mdc-theme-primary: #29B6F6;
      }`
   }
@@ -39,13 +49,15 @@ export class GameControls extends connect(store)(LitElement) {
 
   render() {
     return html`
+    <div class='game-controls'>
     ${!this.gameStarted ?
       html`
       <add-player></add-player>
       <remove-player></remove-player>` 
       : html`<roll-controls></roll-controls>`}
-      <mwc-button raised ?disabled='${!Object.values(this.players).length}' 
-        @click='${this.changeGameStatus}'>${!this.gameStarted ? 'Start' : 'Reset'} Game</mwc-button>`
+    <mwc-button raised ?disabled='${!Object.values(this.players).length}' 
+    @click='${this.changeGameStatus}'>${!this.gameStarted ? 'Start' : 'Reset'} Game</mwc-button>
+    </div>`
   }
 }
 

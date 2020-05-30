@@ -12,10 +12,20 @@ export class PlayerScoreboard extends connect(store)(LitElement) {
     };
   };
 
-  static get style() {
+  static get styles() {
     return css`
-    
-    `
+
+    .mdc-data-table {
+      width: 100%;
+    }
+
+    .total_frame {
+      text-align: center;
+    }
+
+    .frames {
+      text-align: center;
+    }`
   }
 
   stateChanged(state) {
@@ -25,34 +35,36 @@ export class PlayerScoreboard extends connect(store)(LitElement) {
 
   render() {
     return html`
-    <div class='player-scoreboard__container'>
-      <table class="player-scoreboard">
+    <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+    <div class="mdc-data-table">
+      <div class='mdc-data-table__table-container'>
+      <table class="mdc-data-table__table" aria-label="Scoreboard">
         <thead>
-          <tr>
-            <th class='player-scoreboard__name'>Name</th>
-            ${this.frames.map((i) => html`<th class='player-scoreboard__frame' colspan='2'>${i}</th>`)}
-            <th class='player-scoreboard__total_score'>Total Score </th>
+          <tr class="mdc-data-table__header-row">
+            <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Name</th>
+            ${this.frames.map((i) => html`<th class="mdc-data-table__header-cell frames" role="columnheader" colspan="2" scope="col">${i + 1}</th>`)}
+            <th class="mdc-data-table__header-cell" role="columnheader" >Total</th>
           </tr>
         </thead>
-        <tbody>
-          ${this.players.map((player) => html`
-          <tr>
-            <td class='player-scoreboard__name' rowspan='2'> ${player.name}</td>
-            ${this.frames.map(() => html`
-            <td class='player-scoreboard__points' colspan='1'>0</td>
-            <td class='player-scoreboard__points' colspan='1'>0</td>`)}
-            `)}
-          </tr>
-          ${this.players.map(() => html`
-          <tr>
-            ${this.frames.map(() => html`
-            <td class='player-scoreboard__total_points_frame' colspan='2'>
-              0
-            </td>`)}
-          </tr>
-          `)}
+        <tbody class="mdc-data-table__content">
+            ${this.players.map((player) => html`
+            <tr class='mdc-data-table__row'>
+              <td class='mdc-data-table__cell' rowspan='2'> ${player.name}</td>
+              ${this.frames.map(() => html`
+              <td class='mdc-data-table__cell' colspan='1'>0</td>
+              <td class='mdc-data-table__cell' colspan='1'>0</td>`)}
+            </tr>
+            <tr class="mdc-data-table__row">
+              ${this.frames.map(() => html`
+              <td class='mdc-data-table__cell total_frame' colspan="2">
+                0
+              </td>`)}
+            </tr>`
+            )}
+          </tbody>
         </tbody>
       </table>
+      <div>
     </div>`
   }
 }

@@ -1,4 +1,4 @@
-import { LitElement, html } from 'lit-element';
+import { LitElement, html, css } from 'lit-element';
 import { store } from '../../redux/store.js';
 import { addPlayer } from '../../redux/actions.js';
 import '@material/mwc-button';
@@ -13,6 +13,19 @@ export class AddPlayer extends (LitElement) {
     };
   }
 
+  static get styles() {
+    return css`
+    .add-player {
+      display: flex;
+      flex-direction: column;
+      width: 250px;
+    }
+
+    mwc-textfield {
+      margin-bottom: 15px;
+    }`
+  }
+
   addPlayer() {
     const input = this.shadowRoot.getElementById('addPlayerInput');
     this.nameInput = input.value;
@@ -25,8 +38,10 @@ export class AddPlayer extends (LitElement) {
 
   render() {
     return html`
+    <div class='add-player'>
       <mwc-textfield id='addPlayerInput' placeholder='Enter name' required></mwc-textfield>
-      <mwc-button raised icon="add" @click="${this.addPlayer}">Add Player</mwc-button>`;
+      <mwc-button raised icon="add" @click="${this.addPlayer}">Add Player</mwc-button>
+    </div>`;
   }
 }
 

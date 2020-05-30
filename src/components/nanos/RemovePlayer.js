@@ -16,9 +16,11 @@ export class RemovePlayer extends connect(store)(LitElement) {
   static get styles() {
     return css`
      mwc-button {
-      --mdc-theme-primary: #B00020;
+       margin-top: 15px;
+       width: 250px;
+       --mdc-theme-primary: #B00020;
      }`
-  }
+  };
 
   stateChanged(state) {
     this.players = state.players;
@@ -32,7 +34,9 @@ export class RemovePlayer extends connect(store)(LitElement) {
 
   render() {
     return html`
-    <mwc-button raised ?disabled = ${!Object.values(this.players).length} icon="remove" @click='${this.removePlayer}'>Remove Player</mwc-button>`
+    <div class='remove-player'>
+      <mwc-button raised ?disabled = ${!Object.values(this.players).length} icon="remove" @click='${this.removePlayer}'>Remove Player</mwc-button>
+    </div>`
   };
 };
 
