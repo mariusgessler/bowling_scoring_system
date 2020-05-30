@@ -7,7 +7,7 @@ export const addPlayer = name => {
     player: {
       name,
       totalScore: 0,
-      winner: false,
+      totalWins: 0,
     }
   }
 }
