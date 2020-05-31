@@ -5,6 +5,7 @@ import './nanos/AddPlayer.js';
 import './nanos/RemovePlayer.js';
 import './nanos/RollControls.js';
 import '@material/mwc-button';
+import { resetGame } from '../redux/actions.js';
 
 export class GameControls extends connect(store)(LitElement) {
   static get properties() {
@@ -47,7 +48,7 @@ export class GameControls extends connect(store)(LitElement) {
   changeGameStatus() {
     this.gameStarted = !this.gameStarted;
     if (!this.gameStarted) {
-      // reset stats;
+      store.dispatch(resetGame());
     }
   }
 

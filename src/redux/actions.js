@@ -52,3 +52,8 @@ export const nextFrame = (id) => {
   }
 }
 
+export const resetGame = () => {
+  return {
+    type: RESET_GAME,
+  }
+}

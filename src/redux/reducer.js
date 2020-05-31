@@ -3,6 +3,7 @@ import {
   REMOVE_PLAYER,
   ADD_ROLL,
   NEXT_FRAME,
+  RESET_GAME,
 } from './actions.js';
 
 const INITIAL_STATE = {
@@ -53,6 +54,17 @@ export const reducer = (state = INITIAL_STATE, action) => {
         return player;
       })
     }
+    case RESET_GAME:
+      return {
+        ...state,
+        players: state.players.map((player) => {
+          return {
+            ...player,
+            currentFrame: 1,
+            rolls: Object.assign(player.rolls, Object.values(player.rolls).map(() => []) )
+          }
+        })
+      }
     default:
       return state;
   }
