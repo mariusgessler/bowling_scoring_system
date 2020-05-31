@@ -1,14 +1,17 @@
 import { LitElement, html, css } from 'lit-element';
+import { connect } from 'pwa-helpers';
 import { store } from '../../redux/store.js';
-import { addRoll } from '../../redux/actions.js';
+import { addRoll, nextFrame } from '../../redux/actions.js';
 import '@material/mwc-button';
 import '@material/mwc-textfield';
-import { isStrike } from '../../logic/logic.js';
 
-export class RollControls extends (LitElement) {
+export class RollControls extends connect(store)(LitElement) {
   static get properties() {
     return {
       rolls: {
+        type: Array,
+      },
+      players: {
         type: Array,
       }
     };
@@ -34,19 +37,43 @@ export class RollControls extends (LitElement) {
 
   constructor() {
     super();
-    this.score = [];
     this.roll = 0;
-    this.numberOfRolls = 0;
+    this.numberOfRolls = 0; // Start at -1 so player can go twice in first frame;
+    this.playersTurn = 0;
+    // this.currentFrame = 1;
+    this.nextPlayer = false;
   }
+
+  stateChanged(state) {
+    this.players = state.players;
+  };
+
 
   getRoll() {
     const input = this.shadowRoot.getElementById('getRollsInput');
     this.roll = parseInt(input.value, 10);
-    if (this.roll) {
-      this.score = [...this.score, this.roll]
-      store.dispatch(addRoll(this.roll));
+    
+    this.addRoll();
+  };
+
+  addRoll() {
+    const { currentFrame } = this.players[this.playersTurn];
+    const lastPlayer = this.players.length - 1 === this.playersTurn;
+
+    if (this.players[this.playersTurn].rolls[currentFrame].length !== 2) {
+      this.nextPlayer = false;
+      store.dispatch(addRoll(this.players[this.playersTurn].currentFrame, this.roll, this.players[this.playersTurn].id));
+    } else if (lastPlayer) {
+        store.dispatch(nextFrame(this.players[this.playersTurn].id))
+        this.playersTurn = 0;
+        this.nextPlayer = true;
+        store.dispatch(addRoll(this.players[this.playersTurn].currentFrame, this.roll, this.players[this.playersTurn].id));
+    } else {
+      store.dispatch(nextFrame(this.players[this.playersTurn].id));
+      this.playersTurn++;
+      this.nextPlayer = true;
+      store.dispatch(addRoll(this.players[this.playersTurn].currentFrame, this.roll, this.players[this.playersTurn].id));
     }
-    console.log(store.getState())
   };
 
   render() {
@@ -59,3 +86,7 @@ export class RollControls extends (LitElement) {
 }
 
 customElements.define('roll-controls', RollControls);
+
+// Add rolls to player in score
+// After clicking 'Next roll' twice go to next player
+// If at the last player go to first one again
