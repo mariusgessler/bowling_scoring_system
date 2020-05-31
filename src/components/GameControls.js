@@ -35,8 +35,12 @@ export class GameControls extends connect(store)(LitElement) {
      }`
   }
 
-  stateChanged(state) {
+  constructor() {
+    super();
     this.gameStarted = false;
+  }
+
+  stateChanged(state) {
     this.players = state.players;
   }
 
@@ -50,6 +54,7 @@ export class GameControls extends connect(store)(LitElement) {
   render() {
     return html`
     <div class='game-controls'>
+    ${this.gameStarted}
     ${!this.gameStarted ?
       html`
       <add-player></add-player>
