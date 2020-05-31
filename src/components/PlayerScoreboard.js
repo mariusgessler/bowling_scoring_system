@@ -28,9 +28,13 @@ export class PlayerScoreboard extends connect(store)(LitElement) {
     }`
   }
 
+  constructor() {
+    super();
+    this.frames = Array.from(Array(10).keys())
+  }
+
   stateChanged(state) {
     this.players = state.players;
-    this.frames = Array.from(Array(10).keys())
   }
 
   render() {
@@ -50,14 +54,14 @@ export class PlayerScoreboard extends connect(store)(LitElement) {
             ${this.players.map((player) => html`
             <tr class='mdc-data-table__row'>
               <td class='mdc-data-table__cell' rowspan='2'> ${player.name}</td>
-              ${this.frames.map(() => html`
-              <td class='mdc-data-table__cell' colspan='1'>0</td>
-              <td class='mdc-data-table__cell' colspan='1'>0</td>`)}
+              ${this.frames.map((i) => html`
+              <td class='mdc-data-table__cell' colspan='1'>${player.rolls[i+1][0]}</td>
+              <td class='mdc-data-table__cell' colspan='1'>${player.rolls[i+1][1]}</td>`)}
             </tr>
             <tr class="mdc-data-table__row">
-              ${this.frames.map(() => html`
+              ${this.frames.map((i) => html`
               <td class='mdc-data-table__cell total_frame' colspan="2">
-                0
+              ${player.rolls[i+1].length === 2 ? player.rolls[i+1][0] + player.rolls[i+1][1] : player.rolls[i+1][0]}
               </td>`)}
             </tr>`
             )}
