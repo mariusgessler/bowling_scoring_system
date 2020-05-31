@@ -3,6 +3,8 @@ import uid from 'uid';
 export const ADD_PLAYER = 'ADD_PLAYER';
 export const REMOVE_PLAYER = 'REMOVE_PLAYER';
 export const ADD_ROLL = 'ADD_ROLL';
+export const NEXT_FRAME = 'NEXT_FRAME';
+export const RESET_GAME = 'RESET_GAME'
 
 export const addPlayer = name => {
   return {
@@ -10,7 +12,19 @@ export const addPlayer = name => {
     player: {
       id: uid(),
       name,
-      roll: 0,
+      currentFrame: 1,
+      rolls: {
+       1: [],
+       2: [],
+       3: [],
+       4: [],
+       5: [],
+       6: [],
+       7: [],
+       8: [],
+       9: [],
+       10: [],
+      },
       totalWins: 0,
     }
   }
@@ -22,18 +36,19 @@ export const removePlayer = () => {
   }
 }
 
-export const addRoll = roll => {
+export const addRoll = (frame,roll, id) => {
   return {
     type: ADD_ROLL,
-    player: {
-      roll
-    }
+    frame,
+    roll,
+    id,
   }
 }
 
-// export const resetGame = () => {
-//   return {
-//     type: RESET_GAME,
-//     // give each player score of zero
-//   }
-// }
+export const nextFrame = (id) => {
+  return {
+    type: NEXT_FRAME,
+    id,
+  }
+}
+
