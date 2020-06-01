@@ -17,6 +17,9 @@ export class RollControls extends connect(store)(LitElement) {
       currentPlayer: {
         type: Number,
       },
+      remaining: {
+        type: Number,
+      }
     };
   };
 
@@ -31,6 +34,10 @@ export class RollControls extends connect(store)(LitElement) {
       width: 250px;
       --mdc-theme-primary: #018786;
     }
+
+    mwc-button:first-child {
+      margin-bottom: 15px;
+    }
     
     mwc-textfield {
       width: 250px;
@@ -41,6 +48,7 @@ export class RollControls extends connect(store)(LitElement) {
   constructor() {
     super();
     this.roll = 0;
+    this.remaining = 10;
   }
 
   stateChanged(state) {
@@ -48,17 +56,45 @@ export class RollControls extends connect(store)(LitElement) {
     this.currentPlayer = state.currentPlayer;
   };
 
-
   getRoll() {
     const input = this.shadowRoot.getElementById('getRollsInput');
-    this.roll = parseInt(input.value, 10);
-    advanceGame(this.players, this.roll, this.currentPlayer)
+    if (input.value <= 10) {
+     this.roll = parseInt(input.value, 10);
+    }
+
+    advanceGame(this.players, this.roll, this.currentPlayer);
+    this.setRemaining();
   };
+
+  setRemaining() {
+    const input = this.shadowRoot.getElementById('getRollsInput');
+    const { currentFrame } = this.players[this.currentPlayer];
+
+    this.remaining = 10 - this.players[this.currentPlayer].rolls[currentFrame][0];
+    if (this.players[this.currentPlayer].rolls[currentFrame].length === 2) {
+      this.remaining = 10;
+    }
+    input.value = 0;
+  };
+
+  getNextPlayer() {
+    const lastPlayer = this.players.length - 1 === this.currentPlayer;
+    const { currentFrame } = this.players[this.currentPlayer];
+
+    if (this.players[this.currentPlayer].rolls[currentFrame].length === 2 && lastPlayer) {
+      return this.players[0].name;
+    }
+    if (this.players[this.currentPlayer].rolls[currentFrame].length === 2) {
+      return this.players[this.currentPlayer + 1].name
+    }
+    return this.players[this.currentPlayer].name
+  }
 
   render() {
     return html`
     <div class='roll-controls'>
-      <mwc-textfield id='getRollsInput' type='number' min=0 max=10 icon='group_work' label='Knocked over pins'></mwc-textfield>
+      <mwc-button disabled outlined> ${this.getNextPlayer()}</mwc-button>
+      <mwc-textfield id='getRollsInput' type='number' min=0 max='${this.remaining}' icon='group_work' label='Knocked over pins (${this.remaining} remaining)'></mwc-textfield>
       <mwc-button raised icon='navigate_next' @click='${this.getRoll}'>Next roll</mwc-button>
     </div>`
   }
