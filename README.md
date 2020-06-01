@@ -8,7 +8,7 @@
 ## Requirements
 
 - Add a variable number of players with names 
-- Manually add scores for each player (so we can test) 
+- Manually add scores for each player
 - Tracks the number of games won for each player 
 - Reset all game stats and start over 
 - Correctly calculates bowling scores 
