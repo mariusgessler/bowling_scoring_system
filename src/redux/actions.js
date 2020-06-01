@@ -1,6 +1,7 @@
 import uid from 'uid';
 
 export const ADD_PLAYER = 'ADD_PLAYER';
+export const NEXT_PLAYER = 'NEXT_PLAYER'
 export const REMOVE_PLAYER = 'REMOVE_PLAYER';
 export const ADD_ROLL = 'ADD_ROLL';
 export const NEXT_FRAME = 'NEXT_FRAME';
@@ -13,6 +14,7 @@ export const addPlayer = name => {
       id: uid(),
       name,
       currentFrame: 1,
+      active: false,
       rolls: {
        1: [],
        2: [],
@@ -27,6 +29,13 @@ export const addPlayer = name => {
       },
       totalWins: 0,
     }
+  }
+}
+
+export const nextPlayer = (next) => {
+  return {
+    type: NEXT_PLAYER,
+    next,
   }
 }
 

@@ -1,5 +1,6 @@
 import {
   ADD_PLAYER,
+  NEXT_PLAYER,
   REMOVE_PLAYER,
   ADD_ROLL,
   NEXT_FRAME,
@@ -8,6 +9,7 @@ import {
 
 const INITIAL_STATE = {
   players: [],
+  currentPlayer: 0,
 }
 
 export const reducer = (state = INITIAL_STATE, action) => {
@@ -17,11 +19,16 @@ export const reducer = (state = INITIAL_STATE, action) => {
         ...state,
         players: [...state.players, action.player],
       };
+    case NEXT_PLAYER: 
+      return {
+        ...state,
+        currentPlayer: action.next === false ? 0 :state.currentPlayer += 1,
+      };
     case REMOVE_PLAYER: 
       return {
         ...state,
         players: state.players.splice(0, state.players.length - 1),
-      }
+      };
     case ADD_ROLL:
       return {
       ...state,
@@ -63,7 +70,8 @@ export const reducer = (state = INITIAL_STATE, action) => {
             currentFrame: 1,
             rolls: Object.assign(player.rolls, Object.values(player.rolls).map(() => []) )
           }
-        })
+        }),
+        currentPlayer: 0,
       }
     default:
       return state;
