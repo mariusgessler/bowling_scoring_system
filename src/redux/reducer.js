@@ -69,18 +69,7 @@ export const reducer = (state = INITIAL_STATE, action) => {
           return {
             ...player,
             currentFrame: 1,
-            rolls: {
-             1: [],
-             2: [],
-             3: [],
-             4: [],
-             5: [],
-             6: [],
-             7: [],
-             8: [],
-             9: [],
-             10: []
-            }
+            rolls: Object.fromEntries(Object.keys(player.rolls).map((key)=>[key,[]]))
           };
         }),
         currentPlayer: 0,
