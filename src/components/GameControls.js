@@ -55,12 +55,11 @@ export class GameControls extends connect(store)(LitElement) {
   render() {
     return html`
     <div class='game-controls'>
-    ${this.gameStarted}
-    ${!this.gameStarted ?
-      html`
+    ${this.gameStarted ?
+      html`<roll-controls></roll-controls>`
+      :html`
       <add-player></add-player>
-      <remove-player></remove-player>` 
-      : html`<roll-controls></roll-controls>`}
+      <remove-player></remove-player>`}
     <mwc-button raised ?disabled='${!Object.values(this.players).length}' 
     @click='${this.changeGameStatus}'>${!this.gameStarted ? 'Start' : 'Reset'} Game</mwc-button>
     </div>`
