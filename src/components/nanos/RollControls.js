@@ -1,7 +1,7 @@
 import { LitElement, html, css } from 'lit-element';
 import { connect } from 'pwa-helpers';
 import { store } from '../../redux/store.js';
-import { advanceGame } from '../../logic/game.js';
+import { advanceGame, isGameOver } from '../../logic/game.js';
 import '@material/mwc-button';
 import '@material/mwc-textfield';
 
@@ -19,7 +19,7 @@ export class RollControls extends connect(store)(LitElement) {
       },
       remaining: {
         type: Number,
-      }
+      },
     };
   };
 
@@ -35,10 +35,6 @@ export class RollControls extends connect(store)(LitElement) {
       --mdc-theme-primary: #018786;
     }
 
-    mwc-button:first-child {
-      margin-bottom: 15px;
-    }
-    
     mwc-textfield {
       width: 250px;
       margin-bottom: 15px;
@@ -58,10 +54,11 @@ export class RollControls extends connect(store)(LitElement) {
 
   getRoll() {
     const input = this.shadowRoot.getElementById('getRollsInput');
-    if (input.value <= 10) {
+    if (input.value <= 10 && input.value !== '') {
      this.roll = parseInt(input.value, 10);
+    } else {
+      this.roll = 0;
     }
-
     advanceGame(this.players, this.roll, this.currentPlayer);
     this.setRemaining();
   };
@@ -95,7 +92,7 @@ export class RollControls extends connect(store)(LitElement) {
     <div class='roll-controls'>
       <mwc-button disabled outlined> ${this.getNextPlayer()}</mwc-button>
       <mwc-textfield id='getRollsInput' type='number' min=0 max='${this.remaining}' icon='group_work' label='Knocked over pins (${this.remaining} remaining)'></mwc-textfield>
-      <mwc-button raised icon='navigate_next' @click='${this.getRoll}'>Next roll</mwc-button>
+      <mwc-button ?disabled=${isGameOver(this.players)} raised icon='navigate_next' @click='${this.getRoll}'>Next roll</mwc-button>
     </div>`
   }
 }
