@@ -1,7 +1,7 @@
 import { LitElement, html,css } from 'lit-element';
 import { connect } from 'pwa-helpers'; // connects a Custom Element base class to the Redux store
 import { store } from '../redux/store.js';
-import { getTotalScore } from '../logic/game.js';
+import { getGameTotal, getFrameTotal } from '../logic/game.js';
 import '@material/mwc-textfield'
 
 export class PlayerScoreboard extends connect(store)(LitElement) {
@@ -59,12 +59,12 @@ export class PlayerScoreboard extends connect(store)(LitElement) {
               ${this.frames.map((i) => html`
               <td class='mdc-data-table__cell' colspan='1'>${player.rolls[i+1][0]}</td>
               <td class='mdc-data-table__cell' colspan='1'>${player.rolls[i+1][1]}</td>`)}
-              <td class='mdc-data-table__cell' rowspan='2'> ${getTotalScore(player.rolls)}</td>
+              <td class='mdc-data-table__cell' rowspan='2'> ${getGameTotal(player.rolls)}</td>
             </tr>
             <tr class="mdc-data-table__row">
               ${this.frames.map((i) => html`
               <td class='mdc-data-table__cell total_frame' colspan="2">
-              ${player.rolls[i+1].length === 2 ? player.rolls[i+1][0] + player.rolls[i+1][1] : player.rolls[i+1][0]}
+              ${getFrameTotal(player.rolls[i + 1])}
               </td>`)}
             </tr>`
             )}
