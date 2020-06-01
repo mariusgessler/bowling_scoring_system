@@ -5,12 +5,13 @@ import {
   ADD_ROLL,
   NEXT_FRAME,
   RESET_GAME,
+  SET_WINNER
 } from './actions.js';
 
 const INITIAL_STATE = {
   players: [],
   currentPlayer: 0,
-}
+};
 
 export const reducer = (state = INITIAL_STATE, action) => {
   switch(action.type) {
@@ -42,9 +43,9 @@ export const reducer = (state = INITIAL_STATE, action) => {
                 ...player.rolls[action.frame],
                 action.roll
               ]
-            }
-          }
-        }
+            },
+          };
+        };
         return player;
       })
     };
@@ -56,11 +57,11 @@ export const reducer = (state = INITIAL_STATE, action) => {
           return {
             ...player,
             currentFrame: player.currentFrame + 1,
-          }
-        }
+          };
+        };
         return player;
       })
-    }
+    };
     case RESET_GAME:
       return {
         ...state,
@@ -68,11 +69,24 @@ export const reducer = (state = INITIAL_STATE, action) => {
           return {
             ...player,
             currentFrame: 1,
-            rolls: Object.assign(player.rolls, Object.values(player.rolls).map(() => []) )
-          }
+            rolls: Object.assign(player.rolls, Object.values(player.rolls).map(() => []))
+          };
         }),
         currentPlayer: 0,
       }
+      case SET_WINNER:
+        return {
+          ...state,
+          players: state.players.map((player) => {
+            if (player.id === action.id) {
+              return {
+                ...player,
+                totalWins: player.totalWins + 1,
+              };
+            };
+            return player;
+          })
+        };
     default:
       return state;
   }

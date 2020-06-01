@@ -6,6 +6,7 @@ export const REMOVE_PLAYER = 'REMOVE_PLAYER';
 export const ADD_ROLL = 'ADD_ROLL';
 export const NEXT_FRAME = 'NEXT_FRAME';
 export const RESET_GAME = 'RESET_GAME'
+export const SET_WINNER = 'SET_WINNER';
 
 export const addPlayer = name => {
   return {
@@ -14,7 +15,6 @@ export const addPlayer = name => {
       id: uid(),
       name,
       currentFrame: 1,
-      active: false,
       rolls: {
        1: [],
        2: [],
@@ -29,21 +29,21 @@ export const addPlayer = name => {
       },
       totalWins: 0,
     }
-  }
-}
+  };
+};
 
 export const nextPlayer = (next) => {
   return {
     type: NEXT_PLAYER,
     next,
-  }
-}
+  };
+};
 
 export const removePlayer = () => {
   return {
     type: REMOVE_PLAYER,
-  }
-}
+  };
+};
 
 export const addRoll = (frame,roll, id) => {
   return {
@@ -51,18 +51,25 @@ export const addRoll = (frame,roll, id) => {
     frame,
     roll,
     id,
-  }
-}
+  };
+};
 
 export const nextFrame = (id) => {
   return {
     type: NEXT_FRAME,
     id,
-  }
-}
+  };
+};
 
 export const resetGame = () => {
   return {
     type: RESET_GAME,
-  }
-}
+  };
+};
+
+export const setWinner = (id) => {
+  return {
+    type: SET_WINNER,
+    id,
+  };
+};
