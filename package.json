@@ -52,6 +52,7 @@
   "dependencies": {
     "@material/layout-grid": "^6.0.0",
     "@material/mwc-button": "^0.15.0",
+    "@material/mwc-list": "^0.15.0",
     "@material/mwc-textfield": "^0.15.0",
     "deepmerge": "^4.2.2",
     "lit-element": "^2.0.1",
