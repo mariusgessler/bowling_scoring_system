@@ -69,11 +69,22 @@ export const reducer = (state = INITIAL_STATE, action) => {
           return {
             ...player,
             currentFrame: 1,
-            rolls: Object.assign(player.rolls, Object.values(player.rolls).map(() => []))
+            rolls: {
+             1: [],
+             2: [],
+             3: [],
+             4: [],
+             5: [],
+             6: [],
+             7: [],
+             8: [],
+             9: [],
+             10: []
+            }
           };
         }),
         currentPlayer: 0,
-      }
+      };
       case SET_WINNER:
         return {
           ...state,
