@@ -7,11 +7,11 @@ export const getGameTotal = (rolls) => {
   Object.values(rolls).forEach((frames) => {
     if (frames.length) {
       frames.forEach((singleRoll) => {
-        total += singleRoll;
+          total += singleRoll;
       });
     };
   });
-  return total;
+  return total; // Shave off the strike symbol
 };
 
 export const getFrameTotal = (rolls) => {
@@ -20,6 +20,32 @@ export const getFrameTotal = (rolls) => {
     total += roll;
   })
   return total;
+}
+
+export const calculateRolls = (frame,roll, player) => {
+  store.dispatch(addRoll(frame, roll, player));
+
+  const getPrevRoll = ( rollsBack ) => {
+    return store.getState().players.find((i) => i.id === player).rolls[frame - rollsBack]
+  }
+  const currentRoll = store.getState().players.find((i) => i.id === player).rolls[frame]
+
+  if (currentRoll[0] === 10) {
+    store.dispatch(addRoll(frame, 0, player));
+  } 
+
+    if (getPrevRoll(1) && getPrevRoll(1)[0] === 10) {
+      store.dispatch(addRoll(frame - 1,roll, player ))
+      if (getPrevRoll(2) && getPrevRoll(2)[0] === 10) {
+        store.dispatch(addRoll(frame - 2,roll, player ))
+      }
+    }
+
+  if (getPrevRoll(1) && (getPrevRoll(1)[0] + getPrevRoll(1)[1] === 10) && (getPrevRoll(1)[0] !== 10)) {
+    if(currentRoll.length !== 2) {
+      store.dispatch(addRoll(frame - 1,currentRoll[0], player ))
+    }
+  }
 }
 
 
@@ -34,7 +60,7 @@ export const advanceGame = (players, roll, currentPlayer) => {
     store.dispatch(nextFrame(players[currentPlayer].id));
     const updatedFrame = store.getState().players[updatedPlayer].currentFrame;
 
-    store.dispatch(addRoll(updatedFrame, roll, players[updatedPlayer].id));
+    calculateRolls(updatedFrame, roll, players[updatedPlayer].id);
   } else if ((players[currentPlayer].rolls[currentFrame].length === 2 && lastPlayer)) {
     store.dispatch(nextPlayer(false));
     const updatedPlayer = store.getState().currentPlayer;
@@ -42,8 +68,13 @@ export const advanceGame = (players, roll, currentPlayer) => {
     store.dispatch(nextFrame(players[currentPlayer].id));
     const updatedFrame = store.getState().players[updatedPlayer].currentFrame;
 
-    store.dispatch(addRoll(updatedFrame, roll, players[updatedPlayer].id));
+    calculateRolls(updatedFrame, roll, players[updatedPlayer].id);
   } else {
-    store.dispatch(addRoll(currentFrame, roll, players[currentPlayer].id));
+    calculateRolls(currentFrame, roll, players[currentPlayer].id);
   }
 };
+
+export const getRemaining = (players, roll, currentPlayer) => {
+  const  { currentFrame } = players[currentPlayer];
+  return 10 - players[currentPlayer].rolls[currentFrame];
+}
