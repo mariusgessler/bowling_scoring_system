@@ -25,6 +25,11 @@ export class PlayerScoreboard extends connect(store)(LitElement) {
       background-color: whitesmoke;
     }
 
+    .mdc-data-table__cell[colspan='1'] {
+      text-align: center;
+      width: 55px;
+    }
+
     .frames {
       text-align: center;
     }`;
