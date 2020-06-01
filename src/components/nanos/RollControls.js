@@ -21,7 +21,7 @@ export class RollControls extends connect(store)(LitElement) {
         type: Number,
       },
     };
-  };
+  }
 
   static get styles() {
     return css`
@@ -38,7 +38,7 @@ export class RollControls extends connect(store)(LitElement) {
     mwc-textfield {
       width: 250px;
       margin-bottom: 15px;
-    }`
+    }`;
   }
 
   constructor() {
@@ -50,7 +50,7 @@ export class RollControls extends connect(store)(LitElement) {
   stateChanged(state) {
     this.players = state.players;
     this.currentPlayer = state.currentPlayer;
-  };
+  }
 
   getRoll() {
     const input = this.shadowRoot.getElementById('getRollsInput');
@@ -61,7 +61,7 @@ export class RollControls extends connect(store)(LitElement) {
     }
     advanceGame(this.players, this.roll, this.currentPlayer);
     this.setRemaining();
-  };
+  }
 
   setRemaining() {
     const input = this.shadowRoot.getElementById('getRollsInput');
@@ -72,7 +72,7 @@ export class RollControls extends connect(store)(LitElement) {
       this.remaining = 10;
     }
     input.value = 0;
-  };
+  }
 
   getNextPlayer() {
     const lastPlayer = this.players.length - 1 === this.currentPlayer;
@@ -82,9 +82,9 @@ export class RollControls extends connect(store)(LitElement) {
       return this.players[0].name;
     }
     if (this.players[this.currentPlayer].rolls[currentFrame].length === 2) {
-      return this.players[this.currentPlayer + 1].name
+      return this.players[this.currentPlayer + 1].name;
     }
-    return this.players[this.currentPlayer].name
+    return this.players[this.currentPlayer].name;
   }
 
   render() {
@@ -93,7 +93,7 @@ export class RollControls extends connect(store)(LitElement) {
       <mwc-button disabled outlined> ${this.getNextPlayer()}</mwc-button>
       <mwc-textfield id='getRollsInput' type='number' min=0 max='${this.remaining}' icon='group_work' label='Knocked over pins (${this.remaining} remaining)'></mwc-textfield>
       <mwc-button ?disabled=${isGameOver(this.players)} raised icon='navigate_next' @click='${this.getRoll}'>Next roll</mwc-button>
-    </div>`
+    </div>`;
   }
 }
 

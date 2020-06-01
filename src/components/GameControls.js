@@ -17,7 +17,7 @@ export class GameControls extends connect(store)(LitElement) {
         type: Array,
       }
     };
-  };
+  }
 
   static get styles() {
     return css`
@@ -33,7 +33,7 @@ export class GameControls extends connect(store)(LitElement) {
       width: 250px;
       margin-top: 15px;
       --mdc-theme-primary: #29B6F6;
-     }`
+     }`;
   }
 
   constructor() {
@@ -62,7 +62,7 @@ export class GameControls extends connect(store)(LitElement) {
       <remove-player></remove-player>`}
     <mwc-button raised ?disabled='${!Object.values(this.players).length}' 
     @click='${this.changeGameStatus}'>${!this.gameStarted ? 'Start' : 'Reset'} Game</mwc-button>
-    </div>`
+    </div>`;
   }
 }
 

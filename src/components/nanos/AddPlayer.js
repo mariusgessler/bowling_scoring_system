@@ -23,7 +23,7 @@ export class AddPlayer extends (LitElement) {
 
     mwc-textfield {
       margin-bottom: 15px;
-    }`
+    }`;
   }
 
   addPlayer() {
@@ -34,7 +34,7 @@ export class AddPlayer extends (LitElement) {
       this.nameInput = '';
     }
     input.value = '';
-  };
+  }
 
   render() {
     return html`

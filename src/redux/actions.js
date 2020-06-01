@@ -1,11 +1,11 @@
 import uid from 'uid';
 
 export const ADD_PLAYER = 'ADD_PLAYER';
-export const NEXT_PLAYER = 'NEXT_PLAYER'
+export const NEXT_PLAYER = 'NEXT_PLAYER';
 export const REMOVE_PLAYER = 'REMOVE_PLAYER';
 export const ADD_ROLL = 'ADD_ROLL';
 export const NEXT_FRAME = 'NEXT_FRAME';
-export const RESET_GAME = 'RESET_GAME'
+export const RESET_GAME = 'RESET_GAME';
 export const SET_WINNER = 'SET_WINNER';
 
 export const addPlayer = name => {

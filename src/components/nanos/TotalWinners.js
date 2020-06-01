@@ -9,7 +9,7 @@ export class TotalWinners extends connect(store)(LitElement) {
       players: {
         type: Array
       }
-    }
+    };
   }
 
   static get styles() {
@@ -18,7 +18,7 @@ export class TotalWinners extends connect(store)(LitElement) {
       margin: 65px auto;
       width: 250px;
       min-height: 300px;
-    }`
+    }`;
   }
 
   stateChanged(state) {
@@ -35,8 +35,7 @@ export class TotalWinners extends connect(store)(LitElement) {
     ${this.players.map((player) => html`
       <mwc-list-item>${player.name}: ${player.totalWins}</mwc-list-item> <br/>
     ` )}
-    </mwc-list>
-    `
+    </mwc-list>`;
   }
 }
 

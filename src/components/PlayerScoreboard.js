@@ -2,7 +2,7 @@ import { LitElement, html,css } from 'lit-element';
 import { connect } from 'pwa-helpers'; // connects a Custom Element base class to the Redux store
 import { store } from '../redux/store.js';
 import { getGameTotal, getFrameTotal } from '../logic/game.js';
-import '@material/mwc-textfield'
+import '@material/mwc-textfield';
 
 export class PlayerScoreboard extends connect(store)(LitElement) {
   static get properties() {
@@ -11,7 +11,7 @@ export class PlayerScoreboard extends connect(store)(LitElement) {
         type: Array,
       }
     };
-  };
+  }
 
   static get styles() {
     return css`
@@ -27,12 +27,12 @@ export class PlayerScoreboard extends connect(store)(LitElement) {
 
     .frames {
       text-align: center;
-    }`
+    }`;
   }
 
   constructor() {
     super();
-    this.frames = Array.from(Array(10).keys())
+    this.frames = Array.from(Array(10).keys());
   }
 
   stateChanged(state) {
@@ -72,7 +72,7 @@ export class PlayerScoreboard extends connect(store)(LitElement) {
         </tbody>
       </table>
       <div>
-    </div>`
+    </div>`;
   }
 }
 

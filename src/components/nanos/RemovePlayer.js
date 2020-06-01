@@ -11,7 +11,7 @@ export class RemovePlayer extends connect(store)(LitElement) {
         type: Array,
       }
     };
-  };
+  }
 
   static get styles() {
     return css`
@@ -19,25 +19,25 @@ export class RemovePlayer extends connect(store)(LitElement) {
        margin-top: 15px;
        width: 250px;
        --mdc-theme-primary: #B00020;
-     }`
-  };
+     }`;
+  }
 
   stateChanged(state) {
     this.players = state.players;
-  };
+  }
 
   removePlayer() {
     if (this.players) {
-      store.dispatch(removePlayer())
+      store.dispatch(removePlayer());
     };
-  };
+  }
 
   render() {
     return html`
     <div class='remove-player'>
       <mwc-button raised ?disabled = ${!Object.values(this.players).length} icon="remove" @click='${this.removePlayer}'>Remove Player</mwc-button>
-    </div>`
+    </div>`;
   };
-};
+}
 
 customElements.define('remove-player', RemovePlayer);
