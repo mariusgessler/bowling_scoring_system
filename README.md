@@ -1,8 +1,7 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/28258838-c935-434b-b3ac-099f6347ed91/deploy-status)](https://app.netlify.com/sites/bowling-scoring-system/deploys)
 
-[View live](https://bowling-scoring-system.netlify.app/)
-
 # Bowling Scoring System
+[View live](https://bowling-scoring-system.netlify.app/)
 
 ## Built with 
 
