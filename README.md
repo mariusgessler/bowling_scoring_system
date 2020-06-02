@@ -7,6 +7,7 @@
 
 - Lit-Element: 2.0.1
 - Redux: 4.0.5
+- Material Design Web Components
 
 ## Requirements
 
