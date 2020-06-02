@@ -54,23 +54,29 @@ export class RollControls extends connect(store)(LitElement) {
 
   getRoll() {
     const input = this.shadowRoot.getElementById('getRollsInput');
-    if (input.value <= 10 && input.value !== '') {
-     this.roll = parseInt(input.value, 10);
+    const roll = input.value !== '' && parseInt(input.value, 10);
+
+    if (roll <= 10 && input.value <= this.remaining) {
+     this.roll = roll;
+     advanceGame(this.players, this.roll, this.currentPlayer);
     } else {
       this.roll = 0;
     }
-    advanceGame(this.players, this.roll, this.currentPlayer);
+
     this.setRemaining();
   }
 
   setRemaining() {
     const input = this.shadowRoot.getElementById('getRollsInput');
     const { currentFrame } = this.players[this.currentPlayer];
+    const rolls = this.players[this.currentPlayer].rolls[currentFrame];
 
-    this.remaining = 10 - this.players[this.currentPlayer].rolls[currentFrame][0];
-    if (this.players[this.currentPlayer].rolls[currentFrame].length === 2) {
+    if (!rolls.length || rolls.length === 2) {
       this.remaining = 10;
+    } else {
+      this.remaining = 10 - rolls[0];
     }
+
     input.value = 0;
   }
 
@@ -91,7 +97,7 @@ export class RollControls extends connect(store)(LitElement) {
     return html`
     <div class='roll-controls'>
       <mwc-button disabled outlined> ${this.getNextPlayer()}</mwc-button>
-      <mwc-textfield id='getRollsInput' type='number' min=0 max='${this.remaining}' icon='group_work' label='Knocked over pins (${this.remaining} remaining)'></mwc-textfield>
+      <mwc-textfield id='getRollsInput' type='number' min=0 max='${this.remaining}' icon='group_work' label='${this.remaining} pins remaining'></mwc-textfield>
       <mwc-button ?disabled=${isGameOver(this.players)} raised icon='navigate_next' @click='${this.getRoll}'>Next roll</mwc-button>
     </div>`;
   }
