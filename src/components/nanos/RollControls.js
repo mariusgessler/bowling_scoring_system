@@ -57,7 +57,7 @@ export class RollControls extends connect(store)(LitElement) {
     const roll = input.value !== '' && parseInt(input.value, 10);
 
     if (roll <= 10 && input.value <= this.remaining) {
-     this.roll = roll;
+     this.roll = roll || 0;
      advanceGame(this.players, this.roll, this.currentPlayer);
     } else {
       this.roll = 0;
@@ -83,6 +83,8 @@ export class RollControls extends connect(store)(LitElement) {
   getNextPlayer() {
     const lastPlayer = this.players.length - 1 === this.currentPlayer;
     const { currentFrame } = this.players[this.currentPlayer];
+
+    console.log(this.roll)
 
     if (this.players[this.currentPlayer].rolls[currentFrame].length === 2 && lastPlayer) {
       return this.players[0].name;
