@@ -18,7 +18,7 @@ export const getFrameTotal = (rolls) => {
   let total = null;
   rolls.forEach((roll) => {
     total += roll;
-  })
+  });
   return total;
 };
 
@@ -37,6 +37,7 @@ export const isGameOver = (players) => {
   const lastPlayer = players.length - 1;
   let lastFramePlayed = false;
   lastFramePlayed = players[lastPlayer].currentFrame === 10 && players[lastPlayer].rolls[10].length === 2;
+
   if (lastFramePlayed) {
     getWinner();
   };
@@ -75,7 +76,7 @@ export const calculateRolls = (frame,roll, player) => {
 export const advanceGame = (players, roll, currentPlayer) => {
   const lastPlayer = players.length - 1 === currentPlayer;
   const { currentFrame } = players[currentPlayer];
- 
+
   if (players[currentPlayer].rolls[currentFrame].length === 2 && !lastPlayer) {
     store.dispatch(nextPlayer(true));
     const updatedPlayer = store.getState().currentPlayer;

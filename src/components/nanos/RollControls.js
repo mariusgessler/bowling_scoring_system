@@ -25,20 +25,21 @@ export class RollControls extends connect(store)(LitElement) {
 
   static get styles() {
     return css`
-    .roll-controls {
-      display: flex;
-      flex-direction: column;
-    }
+      .roll-controls {
+        display: flex;
+        flex-direction: column;
+      }
 
-    mwc-button {
-      width: 250px;
-      --mdc-theme-primary: #018786;
-    }
+      mwc-button {
+        width: 250px;
+        --mdc-theme-primary: #018786;
+      }
 
-    mwc-textfield {
-      width: 250px;
-      margin-bottom: 15px;
-    }`;
+      mwc-textfield {
+        width: 250px;
+        margin-bottom: 15px;
+      }
+    `;
   }
 
   constructor() {
@@ -57,8 +58,8 @@ export class RollControls extends connect(store)(LitElement) {
     const roll = input.value !== '' && parseInt(input.value, 10);
 
     if (roll <= 10 && input.value <= this.remaining) {
-     this.roll = roll || 0;
-     advanceGame(this.players, this.roll, this.currentPlayer);
+      this.roll = roll || 0;
+      advanceGame(this.players, this.roll, this.currentPlayer);
     } else {
       this.roll = 0;
     }
@@ -84,9 +85,10 @@ export class RollControls extends connect(store)(LitElement) {
     const lastPlayer = this.players.length - 1 === this.currentPlayer;
     const { currentFrame } = this.players[this.currentPlayer];
 
-    console.log(this.roll)
-
-    if (this.players[this.currentPlayer].rolls[currentFrame].length === 2 && lastPlayer) {
+    if (
+      this.players[this.currentPlayer].rolls[currentFrame].length === 2 &&
+      lastPlayer
+    ) {
       return this.players[0].name;
     }
     if (this.players[this.currentPlayer].rolls[currentFrame].length === 2) {
@@ -96,11 +98,23 @@ export class RollControls extends connect(store)(LitElement) {
   }
 
   render() {
-    return html`
-    <div class='roll-controls'>
+    return html` <div class="roll-controls">
       <mwc-button disabled outlined> ${this.getNextPlayer()}</mwc-button>
-      <mwc-textfield id='getRollsInput' type='number' min=0 max='${this.remaining}' icon='group_work' label='${this.remaining} pins remaining'></mwc-textfield>
-      <mwc-button ?disabled=${isGameOver(this.players)} raised icon='navigate_next' @click='${this.getRoll}'>Next roll</mwc-button>
+      <mwc-textfield
+        id="getRollsInput"
+        type="number"
+        min="0"
+        max="${this.remaining}"
+        icon="group_work"
+        label="${this.remaining} pins remaining"
+      ></mwc-textfield>
+      <mwc-button
+        ?disabled=${isGameOver(this.players)}
+        raised
+        icon="navigate_next"
+        @click="${this.getRoll}"
+        >Next roll</mwc-button
+      >
     </div>`;
   }
 }
